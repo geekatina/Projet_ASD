@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmation de suppression{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1>Confirmer la suppression</h1>
+            <p>Êtes-vous sûr de vouloir supprimer cette tâche : "{{ task.description }}" ?</p>
+            <p>Categorie : {{ task.category}}</p>
+            <p>Description: {{ task.description}}</p> <!-- Affichage de la priorité -->
+            <p>Date limite : {{ task.deadline}}</p> 
+            <p>Priorité : {{ task.priority}}</p><!-- Affichage de la catégorie -->
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="confirmation" placeholder="Tapez SUPPRIMER en majuscules">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-danger">Confirmer</button>
+                    <a href="{% url 'task_list' %}" class="btn btn-secondary">Retour à la liste des tâches</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

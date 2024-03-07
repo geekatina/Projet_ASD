@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center mt-4">Tâches par ordre de priorité</h2>
+            <table class="table table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date limite</th>
+                        <th scope="col">Priorité</th>
+                        <th scope="col">Catégorie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks_by_priority %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ task.description }}</td>
+                            <td>{{ task.deadline }}</td>
+                            <td>{{ task.priority }}</td>
+                            <td>{{ task.category }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div>
+                <a href="{% url 'task_list' %}" class="btn btn-secondary">Retour à la liste des tâches</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

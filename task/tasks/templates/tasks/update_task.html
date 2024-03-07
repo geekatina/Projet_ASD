@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifier la tâche{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1>Modifier la tâche</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{form}}
+                <div class="mb-3">
+                    <label for="category" class="form-label">Catégorie</label>
+                    <select class="form-select" id="category" name="category">
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if form.category.value == category.id %} selected {% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                    <a href="{% url 'task_list' %}" class="btn btn-secondary">Retour à la liste des tâches</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

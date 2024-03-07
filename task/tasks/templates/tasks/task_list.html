@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center mt-4">Ajouter une tâche</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{form}}
+                <button type="submit" class="btn btn-primary" style="margin-top:20px">Ajouter</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center mt-4">Liste des tâches</h2>
+            <!-- Votre tableau pour afficher les tâches -->
+            <table class="table table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date limite</th>
+                        <th scope="col">Priorite</th>
+                        <th scope="col">Categorie</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ task.description }}</td>
+                            <td>{{ task.deadline }}</td>
+                            <td>{{ task.priority }}</td>
+                            <td>{{ task.category }}</td>
+                            <td>
+                                <a href="{% url 'update_task' task.id %}" class="btn btn-primary">Modifier</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'delete_task' task.id %}" class="btn btn-danger">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- Lien pour afficher les tâches prioritaires avec une date limite proche -->
+            <a href="{% url 'prioritize_tasks' %}" class="btn btn-primary mb-4">File</a>
+            <a href="{% url 'prioritize_tasks_by_priority' %}" class="btn btn-primary mb-4">Pile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
